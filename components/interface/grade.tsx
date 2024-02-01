@@ -23,6 +23,8 @@ import {SecondContext} from '../context/secondContext';
 
 import {ResultContext} from '../context/resultContext';
 
+import {Operation} from '../buttons/operations';
+
 function Grade(): React.JSX.Element {
   const {firstNumber, setFirstNumber}: any = useContext(FirstContext);
 
@@ -59,28 +61,30 @@ function Grade(): React.JSX.Element {
         <Numbers
           number={'AC'}
           onPres={() => {
-            !operation
-              ? setFirstNumber(firstNumber + '4')
-              : setSecondNumber(secondNumber + ' 4');
+            setFirstNumber('');
+            setSecondNumber('');
+            setOperation('');
+            setResult('');
           }}
         />
+
         <Numbers
-          number={'/'}
+          number={','}
           onPres={() => {
             !operation
-              ? setFirstNumber(firstNumber + '5')
-              : setSecondNumber(secondNumber + '5');
+              ? setFirstNumber(firstNumber + '.')
+              : setSecondNumber(secondNumber + '.');
           }}
         />
         <Numbers
           number={'%'}
           onPres={() => {
             !operation
-              ? setFirstNumber(firstNumber + '6')
-              : setSecondNumber(secondNumber + '6');
+              ? setFirstNumber((parseFloat(firstNumber) / 100).toString())
+              : setSecondNumber((parseFloat(secondNumber) / 100).toString());
           }}
         />
-        <Numbers number={'÷'} onPres={() => setOperation('÷')} />
+        <Operation operacao="÷" onPres={() => setOperation('÷')}></Operation>
       </View>
       <View style={GradeStyles.sections}>
         <Numbers
@@ -107,7 +111,8 @@ function Grade(): React.JSX.Element {
               : setSecondNumber(secondNumber + '9');
           }}
         />
-        <Numbers number={'X'} onPres={() => setOperation('x')} />
+
+        <Operation operacao="X" onPres={() => setOperation('x')}></Operation>
       </View>
       <View style={GradeStyles.sections}>
         <Numbers
@@ -134,7 +139,8 @@ function Grade(): React.JSX.Element {
               : setSecondNumber(secondNumber + '6');
           }}
         />
-        <Numbers number={'-'} onPres={() => setOperation('-')} />
+
+        <Operation operacao="-" onPres={() => setOperation('-')}></Operation>
       </View>
 
       <View style={GradeStyles.sections}>
@@ -162,7 +168,8 @@ function Grade(): React.JSX.Element {
               : setSecondNumber(secondNumber + '3');
           }}
         />
-        <Numbers number={'+'} onPres={() => setOperation('+')} />
+
+        <Operation operacao="+" onPres={() => setOperation('+')}></Operation>
       </View>
 
       <View style={GradeStyles.sections}>
@@ -181,17 +188,17 @@ function Grade(): React.JSX.Element {
           onPres={() => {
             switch (operation) {
               case '+':
-                setResult(parseInt(firstNumber) + parseInt(secondNumber));
+                setResult(parseFloat(firstNumber) + parseFloat(secondNumber));
                 break;
               case 'x':
-                setResult(parseInt(firstNumber) * parseInt(secondNumber));
+                setResult(parseFloat(firstNumber) * parseFloat(secondNumber));
                 break;
               case '-':
-                setResult(parseInt(firstNumber) - parseInt(secondNumber));
+                setResult(parseFloat(firstNumber) - parseFloat(secondNumber));
 
                 break;
               case '÷':
-                setResult(parseInt(firstNumber) / parseInt(secondNumber));
+                setResult(parseFloat(firstNumber) / parseFloat(secondNumber));
                 break;
               default:
                 console.log('erro ao fazer a conta');
@@ -205,7 +212,7 @@ function Grade(): React.JSX.Element {
 
 const GradeStyles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
+    backgroundColor: 'black',
     width: '100%',
     height: '60%',
     flex: 1,

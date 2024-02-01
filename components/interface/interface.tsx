@@ -34,7 +34,7 @@ function Interface(): React.JSX.Element {
         {firstNumber} {operation} {secondNumber}
       </Text>
 
-      <Text>resultado: {result}</Text>
+      <Text style={InterfaceStyles.result}>resultado: {result}</Text>
     </SafeAreaView>
   );
 }
@@ -42,13 +42,19 @@ function Interface(): React.JSX.Element {
 const InterfaceStyles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    backgroundColor: '#C77B43',
+    backgroundColor: 'black',
     width: '100%',
     height: '30%',
     paddingLeft: 30,
   },
   number: {
     fontSize: 40,
+    color: 'white',
+  },
+  result: {
+    color: 'white',
+    marginTop: 20,
+    fontSize: 16,
   },
 });
 
